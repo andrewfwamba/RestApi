@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\MusicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -19,5 +21,11 @@ use App\Http\Controllers\Api\UserController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::post('/auth/register',[UserController::class, 'createUser']);
-Route::post('/auth/login',[UserController::class, 'loginUser']);
+Route::post('/auth/register', [UserController::class, 'createUser']);
+Route::post('/auth/login', [UserController::class, 'loginUser']);
+Route::get('/ping', function () {
+    return response()->json(['success' => true]);
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/get/music',  [MusicController::class, 'show']);
+});
