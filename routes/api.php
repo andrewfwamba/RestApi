@@ -27,5 +27,10 @@ Route::get('/ping', function () {
     return response()->json(['success' => true]);
 });
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/get/music',  [MusicController::class, 'show']);
+    Route::get('/get/music/all',  [MusicController::class, 'index']);
+    Route::get('/get/music/{id}',  [MusicController::class, 'show']);
+    Route::post('/music/add',  [MusicController::class, 'store']);
+    Route::delete('/music/delete/{id}', [MusicController::class, 'destroy']);
+    Route::patch('/music/update/{id}', [MusicController::class, 'update']);
+    Route::get('/stream-music/{id}', [MusicController::class, 'stream']);
 });
