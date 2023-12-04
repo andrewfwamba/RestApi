@@ -4,13 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Mail\ResetPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
+
     //
     public function createUser(Request $request)
     {
@@ -91,6 +96,67 @@ class UserController extends Controller
                 'success' => false,
                 "message" => $th->getMessage()
             ]);
+        }
+    }
+    public function sendResetToken(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+
+            if ($status === Password::RESET_LINK_SENT) {
+                // Use the ResetPassword Mailable to send the email
+                Mail::to($request->email)->send(new ResetPassword);
+
+                return response()->json(['message' => __($status)]);
+            }
+
+            throw ValidationException::withMessages([
+                'email' => [__($status)],
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function resetPassword(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|confirmed|min:8',
+                'token' => 'required|string',
+            ]);
+
+            $response = Password::reset(
+                $request->only('email', 'password', 'password_confirmation', 'token'),
+                function ($user, $password) {
+                    $user->forceFill([
+                        'password' => bcrypt($password),
+                    ])->save();
+                }
+            );
+
+            if ($response === Password::PASSWORD_RESET) {
+                return response()->json(['message' => __($response)]);
+            }
+
+            throw ValidationException::withMessages([
+                'email' => [__($response)],
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 }
