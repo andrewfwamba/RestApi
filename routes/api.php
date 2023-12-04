@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 // });
 Route::post('/auth/register', [UserController::class, 'createUser']);
 Route::post('/auth/login', [UserController::class, 'loginUser']);
+Route::post('/password/email', [UserController::class, 'sendResetToken'])->name("password.reset");
 Route::get('/ping', function () {
     return response()->json(['success' => true]);
 });
