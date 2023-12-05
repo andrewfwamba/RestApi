@@ -204,7 +204,7 @@
                                                                                                     <tr>
                                                                                                         <td style="padding:50px 30px 18px 30px; line-height:36px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content">
                                                                                                             <div>
-                                                                                                                <div style="font-family: inherit; text-align: center"><span style="font-size: 23px">Hello, Andrew!</span></div>
+                                                                                                                <div style="font-family: inherit; text-align: center"><span style="font-size: 23px">Hello, {{$userName}}!</span></div>
                                                                                                                 <div></div>
                                                                                                             </div>
                                                                                                         </td>
@@ -216,11 +216,11 @@
                                                                                                     <tr>
                                                                                                         <td style="padding:18px 30px 18px 30px; line-height:22px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content">
                                                                                                             <div>
-                                                                                                                <div style="font-family: inherit; text-align: center"><span style="font-size: 15px">Use this OTP to reset your account's password </span><span style="color: #000000; font-size: 15px; font-family: arial, helvetica, sans-serif">to regain access </span><span style="font-size: 18px">.</span></div>
-                                                                                                                <div style="font-family: inherit; text-align: center"><span style="color: #152363; font-size: 18px"><strong>OTP: 1234</strong>
-                                                                                                                        <p style="font-size: 14px">Expires in 1hour</p>
+                                                                                                                <div style="font-family: inherit; text-align: center"><span style="font-size: 15px">UWelcome to Fireworks Entertainment </span><span style="color: #000000; font-size: 15px; font-family: arial, helvetica, sans-serif">to regain access </span><span style="font-size: 18px">.</span></div>
+                                                                                                                <div style="font-family: inherit; text-align: center"><span style="color: #152363; font-size: 18px"><strong>The best place to listen to your favorite Djs.</strong>
+                                                                                                                        <p style="font-size: 14px">We hope you have a good time with us.</p>
                                                                                                                     </span></div>
-                                                                                                                <div style="font-family: inherit; text-align: center"><span style="color: #152363; font-size: 18px"><strong>Thank you!</strong></span></div>
+                                                                                                                <div style="font-family: inherit; text-align: center"><span style="color: #152363; font-size: 18px"><strong>Best Regards!</strong></span></div>
                                                                                                                 <div></div>
                                                                                                             </div>
                                                                                                         </td>
