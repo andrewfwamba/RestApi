@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
+use App\Mail\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -42,6 +43,9 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
+
+            $welcomemail = new SendMail($user->name);
+            Mail::to($user->email)->send($welcomemail);
 
             return response()->json([
                 'status' => true,
@@ -102,7 +106,7 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'email' => 'required|email',
+                'email' => 'required|email|exists:users,email',
             ]);
 
             $status = Password::sendResetLink(
