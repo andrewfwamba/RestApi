@@ -13,11 +13,11 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request)
     {
-        // if ($request->expectsJson()) {
-        //     throw new AuthenticationException('Unauthenticated.', [response()->json(['success' => false, 'message' => 'Invalid token'], 401)]);
-        // }
+        if ($request->expectsJson()) {
+            throw new AuthenticationException('Unauthenticated.', [response()->json(['success' => false, 'message' => 'Invalid token'], 401)]);
+        }
 
-        // return null;
-        return $request->expectsJson() ? null : response()->json(['success' => false, "message" => "Invalid token"], 401);
+        return null;
+        // return $request->expectsJson() ? null : response()->json(['success' => false, "message" => "Invalid token"], 401);
     }
 }
