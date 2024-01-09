@@ -69,6 +69,7 @@ class MusicController extends Controller
                 'title' => $request->input('title'),
                 'author' => $request->input('artist'),
                 'url' => asset('storage/' . $filePath),
+                'file_url' => asset('storage/' . $filePath),
                 'user_id' => auth()->id(),
             ]);
             $music->save();
